@@ -91,11 +91,15 @@ $('#render').on('click', function() {
 //Socket Stuff//
 ////////////////
 
+//When a socket connects to the server, make a request to subscribe to class room for DisplayGame
+//This will allow real-time updates to render all DisplayGames on the homepage
 socket.on('connect', function() {
 	socket.get('/displaygame/subscribe');
 });
 
+//This code handles model events for DisplayGame objects
 socket.on('displaygame', function(obj) {
+	//When a DisplayGame is created, re-render the page
 	if (obj.verb == 'created') {
 		var data = obj.data;
 		console.log(data);
